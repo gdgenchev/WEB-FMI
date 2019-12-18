@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel='icon' href='img/favicon/favicon.ico' type='img/favicon.ico'/>
+    <link rel="stylesheet" type="text/css" href="css/style.css"/>
+    <title>MongoDB и MEAN стек</title>
+  </head>
+  <body>
+    <div id="wrapper">
+      <header id="main-header">
+        <h1>MongoDB и MEAN стек</h1>
+      </header>
+      <aside>
+        <nav>
+          <a href="#intro">Въведение</a>
+          <a href="#general-info">Какво е MongoDB?</a>
+          <a href="#key-concepts">Основни понятия в MongoDB</a>
+          <a href="#mongodb-vs-rdbms">MongoDb vs RDBMS</a>
+          <a href="#mongodb-sharding">Скалиране на MongoDB</a>
+          <a href="#mean-stack">MEAN стек</a>
+          <a href="#literature-cited">Използвана литература</a>
+          <a href="#code-list">Списък с код</a>
+          <a href="#figures-list">Списък с фигури</a>
+        </nav>
+      </aside>
+
+      <!-- not using <main> because of our old friend IE ¯\_(ツ)_/¯ -->
+      <section id="main">
+        <article class="needs-article-divider">
+          <h2 id="intro">Въведение</h2>
+          <p>
+            С увеличаването на размера на данните по целия свят се наблюдава и голям интерес около нерелационните база
+            данни,
+            известни още като „NoSQL“(Not only SQL). Бизнесът и организациите търсят нови методи за управление на потопа
+            от данни и
+            се насочват към алтернативни инструменти и системи за управление на бази данни, които са различни от
+            традиционните. Тук се намесва MongoDB.
+            Тя се справя чудесно в приложения, които работят с неструктурирани данни като например:
+            различни MapReduce приложения, Big-Data системи, Social Network приложения, сайтове за новини и др.
+            В такива сценарии е трудно да се структурират данните в таблици. Дори да е възможно, това не винаги
+            е разумно решение, тъй като свързването на отделните таблици може да повлияе значително на
+            производителността на базата.
+          </p>
+          <figure id="figure-1">
+            <img src="img/content/databases-pie.png" alt="Компании, които използват MongoDB"/>
+            <figcaption>
+              Фигура 1. Най-популярните бази данни за 2019
+            </figcaption>
+          </figure>
+
+          <h3>Кой използва MongoDB?</h3>
+          <figure id="figure-2">
+            <img src="img/content/companies.jpg" alt="Най-популярните бази данни за 2019"/>
+            <figcaption>
+              Фигура 2. Някои компании, които използват MongoDB
+            </figcaption>
+          </figure>
+          <h3>Защо се използва MongoDB?</h3>
+          <figure id="figure-3">
+            <img src="img/content/why-use.jpg" alt="Защо се използва MongoDB"/>
+            <figcaption>
+              Фигура 3. Причини за използването на MongoDB
+            </figcaption>
+          </figure>
+        </article>
+
+        <article class="needs-article-divider">
+          <h2 id="general-info">Какво е MongoDB?</h2>
+          <figure id="figure-4">
+            <img src="img/content/mongodb-features.jpg" alt="MongoDB качества"/>
+            <figcaption>
+              Фигура 4. MongoDB - комбинация на най-доброто от релационния и нерелационния модел
+            </figcaption>
+          </figure>
+          <p>
+            MongoDB е open source система за управление на бази данни, разработена от 10gen, която изполва
+            документно-ориентиран модел за представяне на различни данни, като ги съхранява като BSON(Binary JSON)
+            файлове.
+            Това е една от многобройните нерелационни бази данни, възникнали след 2005г. под името
+            NoSQL, които се използват в приложения, които работят с големи данни както и с такива,
+            които не се вписват добре в релационния модел. MongoDB решава проблемите в SQL и традиционният RDBMS,
+            като предлага висока производителност и скалируемост.
+          </p>
+        </article>
+
+        <article class="needs-article-divider">
+          <h2 id="key-concepts">Основни понятия в MongoDB</h2>
+          <ul>
+            <li class="needs-li-divider">
+              Инстанция на база данни: В контекста на mongodb сървър, една инстанция на база данни е
+              физическият контейнер, в който се съхраняват mongodb колекциите. Всяка инстанция си има собствен
+              набор от файлове, разположени на сървъра. Препоръчително е инстанциите да са на отделни машини.
+            </li>
+            <li class="needs-li-divider">
+              Колекция: В контекста на mongodb инстанция, колекцията е група от mongodb документи.
+              Като обект, колекцията е еквивалентна по роля на таблиците в релационните бази данни.
+              Една колекция съществува само в контекста на една mongodb инстанция.
+              Колекциите за разлика от sql таблиците не си налагат ограничения под формата на схеми.
+              Колекциите са динамични обекти и различните документи, които се съдържат в тях, могат да имат
+              различен вид и да съдържат различни полета.
+              <figure id="code-1">
+                <img src="img/content/mongodb-example-collection.svg" alt="Пример за колекция в MongoDB"/>
+                <figcaption>
+                  Код 1. Пример за колекция в MongoDB
+                </figcaption>
+              </figure>
+            </li>
+            <li>
+              Документ: В контекста на mongodb колекция, документът е множество от ключ-стойност полета.
+              Документите имат динамична схема. Различните документи в една колекция могат да съдържат
+              различни помежду си типове полета и цялостна структура. Документи са подобни по вид на JSON файлове,
+              но се съхраняват в по-богатите като възможности и поддържани типове BSON (Binary JSON) файлове.
+              <figure id="code-2">
+                <img src="img/content/mongodb-example-document.png" alt="Пример за документ в MongoDB"/>
+                <figcaption>
+                  Код 2. Пример за документ в MongoDB
+                </figcaption>
+              </figure>
+            </li>
+          </ul>
+        </article>
+
+        <article class="needs-article-divider">
+          <h2 id="mongodb-vs-rdbms">MongoDB vs RDBMS</h2>
+          <table>
+            <tbody>
+              <tr>
+                <td class="header-col"><strong>RDBMS (SQL Database)</strong></td>
+                <td class="header-col"><strong>MongoDB (NoSQL Database) </strong></td>
+              </tr>
+              <tr>
+                <td>Релационна база данни</td>
+                <td>Нерелационна, документно ориентирана база данни</td>
+              </tr>
+              <tr>
+                <td>
+                  Трябва да се помисли за дизайна на базата първо(таблици, структури от данни, релации)
+                  и чак след това може да се започне писането на код
+                </td>
+                <td>
+                  Може да се започне писането на код, без да се знае цялостния дизайн на базата -
+                  той може да се промени по-късно без това да има висока цена, както при RDBMS
+                </td>
+              </tr>
+              <tr>
+                <td>Поддържа SQL</td>
+                <td>Поддържа JSON</td>
+              </tr>
+              <tr>
+                <td>Базирана на таблици</td>
+                <td>Базирана на колеции и двойки - ключ-стойност</td>
+              </tr>
+              <tr>
+                <td>Индексиране</td>
+                <td>Индексиране</td>
+              </tr>
+              <tr>
+                <td>Primary Key</td>
+                <td>Primary Key (Default key <strong>_id </strong> осигурен от самия MongoDB)</td>
+              </tr>
+              <tr>
+                <td>Group By</td>
+                <td>Aggregation</td>
+              </tr>
+              <tr>
+                <td>Поддържа Foreign Key</td>
+                <td>
+                  Не поддържа Foreign Key. Ако е необходимо такова ограничение,
+                  трябва да се реализира чрез код, което е сложно
+                </td>
+              </tr>
+              <tr>
+                <td>Поддържа Join</td>
+                <td>
+                  Не поддържа Join, но може да се смени структурата на документа,
+                  като другият документ се включи в първия
+                </td>
+              </tr>
+              <tr>
+                <td>Поддържа тригери</td>
+                <td>Не поддържа тригери</td>
+              </tr>
+              <tr>
+                <td>Съдържа схеми, които са предефинирани</td>
+                <td>Съдържа динамични схеми</td>
+              </tr>
+              <tr>
+                <td>Не е подходяща за складиране на йерархични данни</td>
+                <td>Най-подходяща е за работа с йерархични данни</td>
+              </tr>
+              <tr>
+                <td>Вертикално скалиране, като се добавя повече RAM</td>
+                <td>Хоризонтално скалиране, като се добавят повече сървъри(Sharding)</td>
+              </tr>
+              <tr>
+                <td>Уязвима към SQL инжекции</td>
+                <td>Не е уязвима към SQL инжекции</td>
+              </tr>
+              <tr>
+                <td>По-бавна е от NoSQL базите данни</td>
+                <td>MongoDB е почти 100 пъти по-бърз от традиционните RDBMS</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="column">
+            <figure id="figure-5">
+              <img src="img/content/relational-data-model.jpg"
+                   alt="Примерен реалационен модел на данните за блог приложение"/>
+              <figcaption>
+                Фигура 5. Примерен реалационен модел на данните за блог приложение
+              </figcaption>
+            </figure>
+          </div>
+          <div class="column">
+            <figure>
+              <img id="figure-6" src="img/content/document-data-model.png"
+                   alt="Документно ориентиран модел на данните за блог приложение">
+              <figcaption>
+                Фигура 6. Примерен документно ориентиран модел на данните за блог приложение
+              </figcaption>
+            </figure>
+          </div>
+          <p>
+            Както се вижда в примера, при MongoDB цялата информация за даден обект
+            се съдържа в един единствен документ, докато в релационният модел тя е
+            обикновено разпределена в много таблици.
+            При документно ориентираният подход, данните са добре локализирани,
+            което намалява драстично нуждата от свързване на отделни таблици.
+            Резултатът от това е по-добра производителност и скалируемост,
+            понеже информацията за даден обект може да се вземе само с едно четене.
+            MongoDB BSON документите са близки по структура с обектите в програмните езици.
+            Това улеснява работата на разработчиците при представянето на обектите в базата.
+          </p>
+        </article>
+
+        <article id="mongodb-sharding" class="needs-article-divider">
+          <h2>Скалиране на MongoDB</h2>
+          <p>
+            Най-сериозният и често срещан проблем при уеб приложенията е възможността за скалиране.
+            За да се справи с това, MongoDB предоставя Sharding. Той осигурява
+            добавянето на огромни масиви от данни разпределени върху няколко машини(shards),
+            което е пример за хоризонтално скалиране.
+            Всеки shard съдържа
+            част от данните и функциите като отделна база данни. Колекцията от няколко shard-а се нарича
+            single logical database. Операциите се извършват през query рутери, App сървър и конфигурационни сървъри,
+            които определят коя операция към кой shard трябва да се насочи. Това спомага и за load-balancing-а.
+            Всичко това звучи добре, но разделянето на данните между отделните машини и менижирането
+            на read/write операциите между тях не е лека задача.
+          </p>
+
+          <figure>
+            <img id="figure-7" src="img/content/mongodb-sharding.jpg"
+                 alt="MongoDB скалиране - Sharding">
+            <figcaption>
+              Фигура 7. Скалиране на MongoDB
+            </figcaption>
+          </figure>
+        </article>
+
+        <article id="mean-stack" class="needs-article-divider">
+          <h2>MEAN стек</h2>
+          <figure>
+            <img id="figure-8" src="img/content/mean-architecture.jpg"
+                 alt="MEAN стек архитектура">
+            <figcaption>
+              Фигура 8. MEAN стек архитектура
+            </figcaption>
+          </figure>
+          MEAN е колекция от технологии(MongoDB, Express.js, Angular.js, и Node.js), всички от които са написани
+          на Javascript. Чрез него могат да се разработват уеб приложения от край до край, като се използва само JS.
+          <h3>Предимства на MEAN стек</h3>
+          <ul>
+            <li>MEAN е изцяло базиран на JavaScript:
+              Затова разработчиците обичат да използват MEAN, тъй като им се налага да работят само с един език за
+              програмиране.
+            </li>
+            <li>
+              MEAN е open-source технология: Всички продукти в MEAN стека са с отворен код, което
+              позволява лесен достъп до публичните repository-та и библиотеки.
+            </li>
+            <li>
+              MEAN е изгоден откъм цена:
+              Ако погледнем от бизнес перспектива, компаниите не трябва да наемат много експерти в различни области,
+              а могат да наемат full-stack Javascript програмист, който да разбира от целия процес на разработка на
+              дадено уеб приложение
+            </li>
+          </ul>
+          <h3>
+            Много добър Guide, включващ стъпките за инсталация на MEAN стек и реализирането на базово CRUD приложение,
+            може да откриете тук -
+            <a href="https://www.djamware.com/post/5a0673c880aca7739224ee21/mean-stack-angular-5-crud-web-application-example"
+               target="_blank">[5] MEAN stack Guide.</a>
+          </h3>
+        </article>
+
+        <!-- Списъци с използвани неща -->
+        <article id="literature-cited" class="needs-article-divider">
+          <h2>Използвана литература</h2>
+          <ul>
+            <li>
+              <a href="https://jira.mongodb.org/secure/attachment/112939/MongoDB_Architecture_Guide.pdf"
+                 target="_blank">
+                [1] MongoDB Architecture Guide
+              </a>
+            </li>
+            <li>
+              <a href="https://www.guru99.com/what-is-mongodb.html" target="_blank">
+                [2] MongoDB General Information
+              </a>
+            </li>
+            <li>
+              <a href="https://www.tutorialsjar.com/mongodb-vs-rdbms-difference" target="_blank">
+                [3] MongoDB vs RDBMS
+              </a>
+            </li>
+            <li>
+              <a href="https://intellipaat.com/blog/what-is-mean-stack/" target="_blank">
+                [4] MEAN stack General Information
+              </a>
+            </li>
+            <li>
+              <a href="https://www.djamware.com/post/5a0673c880aca7739224ee21/mean-stack-angular-5-crud-web-application-example"
+                 target="_blank">
+                [5] MEAN stack Guide
+              </a>
+            </li>
+          </ul>
+        </article>
+
+        <article id="code-list" class="needs-article-divider">
+          <h2>Списък с код</h2>
+          <ul>
+            <li>
+              <a href="#code-1">Код 1.</a>
+              Пример за колекция в MongoDB
+            </li>
+            <li>
+              <a href="#code-2">Код 2.</a>
+              Пример за документ в MongoDB
+          </ul>
+        </article>
+
+        <article id="figures-list">
+          <h2>Списък с Фигури</h2>
+          <ul>
+            <li>
+              <a href="https://scalegrid.io/blog/wp-content/uploads/2019/02/Most-Popular-Databases-Used-MySQL-MongoDB-PostgreSQL-Redis-Cassandra-Oracle.png"
+                 target="_blank">
+                Фигура 1.
+              </a>
+              Най-популярните бази данни за 2019
+            </li>
+            <li>
+              <a href="https://image.slidesharecdn.com/governmentdaas-sept162014v4-140916154154-phpapp01/95/how-government-agencies-are-using-mongodb-to-build-data-as-a-service-solutions-6-638.jpg?cb=1410882186"
+                 target="_blank">
+                Фигура 2.
+              </a>
+              Някои компании, които използват MongoDB
+            </li>
+            <li>
+              <a href="https://stackshare.io/mongodb" target="_blank">Фигура 3.</a>
+              Причини за използването на MongoDB
+            </li>
+            <li>
+              Фигури взети от <a href="https://jira.mongodb.org/secure/attachment/112939/MongoDB_Architecture_Guide.pdf"
+                                 target="_blank">[1] MongoDB Architecture Guide</a>:
+              <ul>
+                <li>
+                  <a href="#figure-4">Фигура 4.</a>
+                  MongoDB - комбинация на най-доброто от релационния и нерелационния модел
+                </li>
+                <li>
+                  <a href="#figure-5">Фигура 5.</a>
+                  Примерен реалационен модел на данните за блог приложение
+                </li>
+                <li>
+                  <a href="#figure-6">Фигура 6.</a>
+                  Примерен документно-ориентиран модел на данните за блог приложение
+                </li>
+              </ul>
+            </li>
+            <li>
+              <a href="https://static.packt-cdn.com/products/9781783986729/graphics/6729OS_3_07.jpg" target="_blank">
+                Фигура 7.
+              </a>
+              Скалиране на MongoDB
+            </li>
+            <li>
+              <a href="https://11m5ki43y82budjol1gjvv5s-wpengine.netdna-ssl.com/wp-content/uploads/2019/02/boost-your-apps-and-websites-architecture-of-mean-stack.jpg"
+                 target="_blank">
+                Фигура 8.
+              </a>
+              МEAN стек архитектура
+            </li>
+          </ul>
+        </article>
+      </section>
+    </div>
+  </body>
+</html>

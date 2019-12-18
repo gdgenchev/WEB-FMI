@@ -1,0 +1,174 @@
+body {
+    font-family: Helvetica, serif;
+    font-size: 18px;
+    color: #32475c;
+    overflow-x: hidden;
+}
+
+#wrapper {
+    position: relative;
+    display: grid;
+    display: -ms-grid;
+    grid-template-areas: "nav header"
+                         "nav content";
+    -ms-grid-columns: 25% 75%;
+    -ms-grid-rows: 100%;
+    grid-column-gap: 70px;
+    grid-template-columns: 25% 75%;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+aside {
+    grid-area: nav;
+    -ms-grid-column: 1;
+    -ms-grid-row: 2;
+}
+
+aside nav {
+    top: 60px;
+    position: sticky;
+    position: -webkit-sticky;
+    display: flex;
+    flex-direction: column;
+}
+
+nav a {
+    background: #13AA52;
+    color: white;
+    text-decoration: none;
+    text-transform: uppercase;
+    padding: 13px 10px;
+    border-bottom: 1px solid #e5e5e5;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 10px;
+    box-shadow: 0 0 5px #007421;
+    margin-top: 10px;
+}
+
+nav a:visited {
+    color: white;
+}
+
+nav a:hover {
+    color: white;
+    background: #007421;
+    box-shadow: 0 0 5px #21313c;
+
+}
+
+#main {
+    grid-area: content;
+    -ms-grid-column: 2;
+    -ms-grid-row: 2;
+    position: relative;
+}
+
+#main-header {
+    text-shadow: 0 0 3px #21313c;
+    grid-area: header;
+    -ms-grid-column: 2;
+    -ms-grid-row: 1;
+}
+
+
+li {
+    margin-top: 20px;
+}
+
+.needs-li-divider::after {
+    margin-top: 20px;
+    display: block;
+    width: 100%;
+    height: 30px;
+    content: "";
+    background-image: url(../img/dividers/leavese-divider-2.jpg);
+    background-repeat: round;
+}
+
+img {
+    width: 100%;
+    border-radius: 5px;
+    box-shadow: 0 0 5px #21313c;
+}
+
+figure {
+    text-align: center;
+    padding: 0;
+    margin: 16px 0;
+}
+
+figcaption {
+    font-size: 14px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    border-style: hidden;
+}
+
+table td, table th {
+    border: 1px solid #21313c;
+}
+
+td {
+    padding: 10px;
+    width: 25%;
+}
+
+.header-col {
+    font-size: 20px;
+}
+
+.needs-article-divider::after {
+    margin-top: 20px;
+    display: block;
+    width: 100%;
+    height: 52px;
+    content: "";
+    background-image: url(../img/dividers/leaves-divider.jpg);
+    background-repeat: round;
+}
+
+article {
+    padding-right: 15%;
+}
+
+article h3 {
+    font-weight: normal;
+}
+
+.column {
+    float: left;
+    width: 48%;
+    padding: 1%;
+}
+
+.two-image-container p {
+    padding: 10px;
+}
+
+#main a, #main a:visited {
+    text-decoration: none;
+    color: #007421;
+}
+
+@media screen and (max-width: 700px) {
+    #wrapper {
+        margin: 0 auto;
+        grid-template-areas: "header"
+                              "nav"
+                            "content";
+        grid-template-columns: 100%;
+    }
+
+    article {
+        padding: 0;
+    }
+
+    .column {
+        width: 100%;
+    }
+}
