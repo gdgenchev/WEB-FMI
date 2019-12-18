@@ -1,0 +1,43 @@
+input, select, textarea {
+    width: 100%;
+    padding: 5px 5px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+input[type=submit] {
+    width: 100%;
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    border: none;
+    cursor: pointer;
+}
+
+/* Remove the annoying arrows */
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Hack for FireFox */
+input[type=number] {
+    -moz-appearance: textfield;
+}
+
+textarea {
+    resize: none;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+#container {
+    width: 30%;
+    margin: auto;
+}
